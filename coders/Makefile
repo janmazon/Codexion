@@ -6,7 +6,7 @@
 #    By: jcamarer <jcamarer@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/09/07 10:15:11 by jcamarer          #+#    #+#              #
-#    Updated: 2026/09/07 13:51:10 by jcamarer         ###   ########.fr        #
+#    Updated: 2026/09/08 14:58:07 by jcamarer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,11 @@ NAME = codexion
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread
 
-SRCS = main.c
+SRCS = main.c parser.c
 
 OBJS = $(SRCS:.c=.o)
 
-HEADERS = structs.h
+HEADERS = codexion.h
 
 all: $(NAME)
 $(NAME): $(OBJS)
