@@ -6,7 +6,7 @@
 /*   By: jcamarer <jcamarer@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/07 13:50:07 by jcamarer          #+#    #+#             */
-/*   Updated: 2026/09/09 15:53:07 by jcamarer         ###   ########.fr       */
+/*   Updated: 2026/09/09 17:50:07 by jcamarer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	init_data(t_data *data, char **argv)
 {
 	parse_params(&data->params, argv);
+	pthread_mutex_init(&data->print_mutex, NULL);
 	if (check_params(&data->params) == 1)
 		return (1);
 	if (init_dongles(data) == 1)
@@ -24,6 +25,7 @@ static int	init_data(t_data *data, char **argv)
 		free(data->dongles);
 		return (1);
 	}
+	data->params.start_time = get_time();
 	return (0);
 }
 

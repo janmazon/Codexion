@@ -6,7 +6,7 @@
 #    By: jcamarer <jcamarer@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/09/07 10:15:11 by jcamarer          #+#    #+#              #
-#    Updated: 2026/09/09 14:32:25 by jcamarer         ###   ########.fr        #
+#    Updated: 2026/09/09 16:38:07 by jcamarer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = codexion
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread
 
-SRCS = main.c parser.c dongle.c coder.c
+SRCS = main.c parser.c dongle.c coder.c simulation.c utils.c
 
 OBJS = $(SRCS:.c=.o)
 

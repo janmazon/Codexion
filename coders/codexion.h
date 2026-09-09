@@ -6,7 +6,7 @@
 /*   By: jcamarer <jcamarer@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/07 13:14:38 by jcamarer          #+#    #+#             */
-/*   Updated: 2026/09/09 15:53:58 by jcamarer         ###   ########.fr       */
+/*   Updated: 2026/09/09 17:44:01 by jcamarer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+# include <sys/time.h>
+# include <unistd.h>
 
 typedef enum e_coder_status
 {
@@ -49,6 +51,7 @@ typedef struct s_params
 	long		time_to_refactor;
 	int			number_of_compiles_required;
 	long		dongle_cooldown;
+	long		start_time;
 	t_scheduler	scheduler;
 }	t_params;
 
@@ -70,19 +73,23 @@ typedef struct s_coder
 	int				compile_counter;
 	long			last_compile_start;
 	pthread_mutex_t	mutex;
+	pthread_mutex_t	*print_mutex;
 }	t_coder;
 
 typedef struct s_data
 {
-	t_params	params;
-	t_dongle	*dongles;
-	t_coder		*coders;
+	t_params		params;
+	t_dongle		*dongles;
+	t_coder			*coders;
+	pthread_mutex_t	print_mutex;
 }	t_data;
 
-int	validate_args(char **argv);
-int	parse_params(t_params *params, char **argv);
-int	check_params(t_params *params);
-int	init_dongles(t_data *data);
-int	init_coders(t_data *data);
+int		validate_args(char **argv);
+int		parse_params(t_params *params, char **argv);
+int		check_params(t_params *params);
+int		init_dongles(t_data *data);
+int		init_coders(t_data *data);
+long	get_time(void);
+void	*coder_routine(void *arg);
 
 #endif

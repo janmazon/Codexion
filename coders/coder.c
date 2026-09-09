@@ -6,7 +6,7 @@
 /*   By: jcamarer <jcamarer@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/09 11:14:11 by jcamarer          #+#    #+#             */
-/*   Updated: 2026/09/09 15:41:42 by jcamarer         ###   ########.fr       */
+/*   Updated: 2026/09/09 17:44:40 by jcamarer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	init_coders(t_data *data)
 		data->coders[i].dongles = data->dongles;
 		data->coders[i].compile_counter = 0;
 		data->coders[i].last_compile_start = 0;
+		data->coders[i].print_mutex = &data->print_mutex;
 		pthread_mutex_init(&data->coders[i].mutex, NULL);
 		i++;
 	}
