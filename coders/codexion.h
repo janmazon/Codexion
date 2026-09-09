@@ -6,7 +6,7 @@
 /*   By: jcamarer <jcamarer@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/07 13:14:38 by jcamarer          #+#    #+#             */
-/*   Updated: 2026/09/08 16:47:22 by jcamarer         ###   ########.fr       */
+/*   Updated: 2026/09/09 15:53:58 by jcamarer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,7 @@ typedef enum e_scheduler
 	EDF,
 }	t_scheduler;
 
-typedef struct s_coder
-{
-	int				id;
-	t_coder_status	status;
-	int				compile_counter;
-	long			last_compile_start;
-	pthread_mutex_t	mutex;
-}	t_coder;
-
-typedef struct s_dongle
-{
-	int				id;
-	t_dongle_status	status;
-	long			last_release_time;
-	pthread_mutex_t	mutex;
-}	t_dongle;
-
-typedef struct s_parameters
+typedef struct s_params
 {
 	int			number_of_coders;
 	long		time_to_burnout;
@@ -67,10 +50,39 @@ typedef struct s_parameters
 	int			number_of_compiles_required;
 	long		dongle_cooldown;
 	t_scheduler	scheduler;
-}	t_parameters;
+}	t_params;
+
+typedef struct s_dongle
+{
+	int				id;
+	t_dongle_status	status;
+	long			last_release_time;
+	pthread_mutex_t	mutex;
+	pthread_cond_t	cond;
+}	t_dongle;
+
+typedef struct s_coder
+{
+	int				id;
+	t_coder_status	status;
+	t_params		*params;
+	t_dongle		*dongles;
+	int				compile_counter;
+	long			last_compile_start;
+	pthread_mutex_t	mutex;
+}	t_coder;
+
+typedef struct s_data
+{
+	t_params	params;
+	t_dongle	*dongles;
+	t_coder		*coders;
+}	t_data;
 
 int	validate_args(char **argv);
-int	parse_parameters(t_parameters *parameters, char **argv);
-int	check_parameters(t_parameters *parameters);
+int	parse_params(t_params *params, char **argv);
+int	check_params(t_params *params);
+int	init_dongles(t_data *data);
+int	init_coders(t_data *data);
 
 #endif

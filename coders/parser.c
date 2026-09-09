@@ -6,7 +6,7 @@
 /*   By: jcamarer <jcamarer@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/08 13:44:27 by jcamarer          #+#    #+#             */
-/*   Updated: 2026/09/08 16:48:02 by jcamarer         ###   ########.fr       */
+/*   Updated: 2026/09/09 15:22:31 by jcamarer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,32 +58,32 @@ int	validate_args(char **argv)
 	return (0);
 }
 
-int	parse_parameters(t_parameters *parameters, char **argv)
+int	parse_params(t_params *params, char **argv)
 {
-	parameters->number_of_coders = atoi(argv[1]);
-	parameters->time_to_burnout = atoi(argv[2]);
-	parameters->time_to_compile = atoi(argv[3]);
-	parameters->time_to_debug = atoi(argv[4]);
-	parameters->time_to_refactor = atoi(argv[5]);
-	parameters->number_of_compiles_required = atoi(argv[6]);
-	parameters->dongle_cooldown = atoi(argv[7]);
-	parameters->scheduler = strcmp(argv[8], "edf") == 0;
+	params->number_of_coders = atoi(argv[1]);
+	params->time_to_burnout = atoi(argv[2]);
+	params->time_to_compile = atoi(argv[3]);
+	params->time_to_debug = atoi(argv[4]);
+	params->time_to_refactor = atoi(argv[5]);
+	params->number_of_compiles_required = atoi(argv[6]);
+	params->dongle_cooldown = atoi(argv[7]);
+	params->scheduler = strcmp(argv[8], "edf") == 0;
 	return (0);
 }
 
-int	check_parameters(t_parameters *parameters)
+int	check_params(t_params *params)
 {
-	if (parameters->number_of_coders <= 0
-		|| parameters->time_to_burnout <= 0
-		|| parameters->time_to_compile <= 0
-		|| parameters->time_to_debug <= 0
-		|| parameters->time_to_refactor <= 0
-		|| parameters->number_of_compiles_required <= 0)
+	if (params->number_of_coders <= 0
+		|| params->time_to_burnout <= 0
+		|| params->time_to_compile <= 0
+		|| params->time_to_debug <= 0
+		|| params->time_to_refactor <= 0
+		|| params->number_of_compiles_required <= 0)
 	{
 		printf("Error: invalid values. Must be greater than 0.\n");
 		return (1);
 	}
-	if (parameters->dongle_cooldown < 0)
+	if (params->dongle_cooldown < 0)
 	{
 		printf("Error: invalid values. Must be positive.\n");
 		return (1);
