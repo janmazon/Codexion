@@ -6,7 +6,7 @@
 /*   By: jcamarer <jcamarer@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/07 13:14:38 by jcamarer          #+#    #+#             */
-/*   Updated: 2026/09/10 12:00:42 by jcamarer         ###   ########.fr       */
+/*   Updated: 2026/09/10 13:37:59 by jcamarer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ typedef struct s_coder
 	long			last_compile_start;
 	pthread_mutex_t	mutex;
 	pthread_mutex_t	*print_mutex;
+	int				*stop_flag;
+	pthread_mutex_t	*stop_mutex;
 }	t_coder;
 
 typedef struct s_data
@@ -83,6 +85,8 @@ typedef struct s_data
 	t_dongle		*dongles;
 	t_coder			*coders;
 	pthread_mutex_t	print_mutex;
+	int				stop_flag;
+	pthread_mutex_t	stop_mutex;
 }	t_data;
 
 int		validate_args(char **argv);
@@ -95,5 +99,8 @@ void	do_compiling(t_coder *coder);
 void	do_debugging(t_coder *coder);
 void	do_refactoring(t_coder *coder);
 void	*coder_routine(void *arg);
+int		check_stop(t_coder *coder);
+void	*monitor_routine(void *arg);
+void	print_status(t_coder *coder, char *status);
 
 #endif
