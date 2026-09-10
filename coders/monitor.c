@@ -6,7 +6,7 @@
 /*   By: jcamarer <jcamarer@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 12:42:55 by jcamarer          #+#    #+#             */
-/*   Updated: 2026/09/10 13:54:41 by jcamarer         ###   ########.fr       */
+/*   Updated: 2026/09/10 18:22:57 by jcamarer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	*monitor_routine(void *arg)
 		}
 		if (finished == data->params.number_of_coders)
 			return (NULL);
+		usleep(1000);
 	}
 	return (NULL);
 }
