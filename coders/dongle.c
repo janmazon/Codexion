@@ -6,7 +6,7 @@
 /*   By: jcamarer <jcamarer@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/09 11:14:20 by jcamarer          #+#    #+#             */
-/*   Updated: 2026/09/10 11:53:43 by jcamarer         ###   ########.fr       */
+/*   Updated: 2026/09/10 16:02:12 by jcamarer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ int	init_dongles(t_data *data)
 		data->dongles[i].id = i + 1;
 		data->dongles[i].status = STATUS_AVAILABLE;
 		data->dongles[i].last_release_time = 0;
+		data->dongles[i].heap.max_size = data->params.number_of_coders;
+		data->dongles[i].heap.size = 0;
+		data->dongles[i].heap.requests = malloc(data->dongles[i].heap.max_size
+				* sizeof(t_request));
+		if (!data->dongles[i].heap.requests)
+			return (1);
 		pthread_mutex_init(&data->dongles[i].mutex, NULL);
 		pthread_cond_init(&data->dongles[i].cond, NULL);
 		i++;

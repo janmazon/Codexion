@@ -6,7 +6,7 @@
 /*   By: jcamarer <jcamarer@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/07 13:14:38 by jcamarer          #+#    #+#             */
-/*   Updated: 2026/09/10 13:37:59 by jcamarer         ###   ########.fr       */
+/*   Updated: 2026/09/10 16:37:08 by jcamarer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,19 @@ typedef struct s_params
 	t_scheduler	scheduler;
 }	t_params;
 
+typedef struct s_request
+{
+	int		coder_id;
+	long	priority;
+}	t_request;
+
+typedef struct s_heap
+{
+	t_request	*requests;
+	int			size;
+	int			max_size;
+}	t_heap;
+
 typedef struct s_dongle
 {
 	int				id;
@@ -62,6 +75,7 @@ typedef struct s_dongle
 	long			last_release_time;
 	pthread_mutex_t	mutex;
 	pthread_cond_t	cond;
+	t_heap			heap;
 }	t_dongle;
 
 typedef struct s_coder
@@ -89,18 +103,20 @@ typedef struct s_data
 	pthread_mutex_t	stop_mutex;
 }	t_data;
 
-int		validate_args(char **argv);
-int		parse_params(t_params *params, char **argv);
-int		check_params(t_params *params);
-int		init_dongles(t_data *data);
-int		init_coders(t_data *data);
-long	get_time(void);
-void	do_compiling(t_coder *coder);
-void	do_debugging(t_coder *coder);
-void	do_refactoring(t_coder *coder);
-void	*coder_routine(void *arg);
-int		check_stop(t_coder *coder);
-void	*monitor_routine(void *arg);
-void	print_status(t_coder *coder, char *status);
+int			validate_args(char **argv);
+int			parse_params(t_params *params, char **argv);
+int			check_params(t_params *params);
+int			init_dongles(t_data *data);
+int			init_coders(t_data *data);
+long		get_time(void);
+void		do_compiling(t_coder *coder);
+void		do_debugging(t_coder *coder);
+void		do_refactoring(t_coder *coder);
+void		*coder_routine(void *arg);
+int			check_stop(t_coder *coder);
+void		*monitor_routine(void *arg);
+void		print_status(t_coder *coder, char *status);
+void		heap_insert(t_heap *heap, t_request request);
+t_request	heap_extract(t_heap *heap);
 
 #endif
