@@ -6,7 +6,7 @@
 /*   By: jcamarer <jcamarer@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/07 13:14:38 by jcamarer          #+#    #+#             */
-/*   Updated: 2026/09/09 17:44:01 by jcamarer         ###   ########.fr       */
+/*   Updated: 2026/09/10 12:00:42 by jcamarer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ typedef struct s_coder
 	int				id;
 	t_coder_status	status;
 	t_params		*params;
-	t_dongle		*dongles;
+	t_dongle		*left_dongle;
+	t_dongle		*right_dongle;
 	int				compile_counter;
 	long			last_compile_start;
 	pthread_mutex_t	mutex;
@@ -90,6 +91,9 @@ int		check_params(t_params *params);
 int		init_dongles(t_data *data);
 int		init_coders(t_data *data);
 long	get_time(void);
+void	do_compiling(t_coder *coder);
+void	do_debugging(t_coder *coder);
+void	do_refactoring(t_coder *coder);
 void	*coder_routine(void *arg);
 
 #endif
